@@ -1,7 +1,6 @@
-package com.example.deploy;
+package com.example.deploy.controller;
 
 import com.example.deploy.model.Person;
-import com.example.deploy.repository.PersonRepository;
 import com.example.deploy.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
