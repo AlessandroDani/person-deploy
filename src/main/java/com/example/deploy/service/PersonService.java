@@ -15,7 +15,10 @@ public class PersonService {
 
     public Person save(Person person) {
         if (personRepository.findByIdentification(person.getIdentification()).isPresent()) {
-            throw new PersonAlreadyExistException();
+            throw new PersonAlreadyExistException("identificador");
+        }
+        if(personRepository.existsByEmail(person.getEmail())) {
+            throw new PersonAlreadyExistException("email");
         }
         return personRepository.save(person);
     }
