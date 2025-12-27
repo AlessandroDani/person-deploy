@@ -12,8 +12,9 @@ public class PersonService {
     private final PersonRepository personRepository;
 
     public Person save(Person person) {
-        personRepository.findByIdentification(person.getIdentification())
-                .orElseThrow(() -> new RuntimeException("Persona ya existe"));
+        if (personRepository.findByIdentification(person.getIdentification()).isPresent()) {
+            throw new RuntimeException("Persona ya existe");
+        }
         return personRepository.save(person);
     }
 
