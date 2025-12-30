@@ -7,6 +7,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.swing.*;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashMap;
@@ -25,6 +26,11 @@ public class ControllerAdvisor {
     @ExceptionHandler(PersonNotFoundException.class)
     public ResponseEntity<Map<String, String>> handlePersonNotFoundException(PersonNotFoundException  personNotFoundException) {
         return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap(MESSAGE, personNotFoundException.getMessage()));
+    }
+
+    @ExceptionHandler(SpringBootInitializationException.class)
+    public ResponseEntity<Map<String, String>> handleSpringBootInitializationException(SpringBootInitializationException  springBootInitializationException) {
+        return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.singletonMap(MESSAGE, springBootInitializationException.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
