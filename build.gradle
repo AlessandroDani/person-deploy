@@ -1,10 +1,22 @@
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.5'
-}
+    id 'com.gradleup.shadow' version '8.3.0'}
 
 group = 'com.pragma'
 version = '0.0.1-SNAPSHOT'
+
+shadowJar {
+    archiveClassifier = 'aws'
+    mergeServiceFiles()
+    append 'META-INF/spring.handlers'
+    append 'META-INF/spring.schemas'
+    append 'META-INF/spring.tooling'
+    transform(com.github.jengelman.gradle.plugins.shadow.transformers.PropertiesFileTransformer) {
+        paths = ['META-INF/spring.factories']
+        mergeStrategy = 'append'
+    }
+}
 
 java {
     toolchain {
@@ -22,6 +34,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation "org.springframework.boot:spring-boot-starter-validation"
+    implementation 'com.amazonaws.serverless:aws-serverless-java-container-springboot3:2.0.1'
+    implementation 'com.amazonaws:aws-lambda-java-core:1.2.3'
 
 
     runtimeOnly 'org.postgresql:postgresql:42.7.3'
