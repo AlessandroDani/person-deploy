@@ -8,7 +8,12 @@ version = '0.0.1-SNAPSHOT'
 
 shadowJar {
     archiveClassifier = 'aws'
+    archiveFileName = 'final-build-v1.jar'
     mergeServiceFiles()
+
+    append 'META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports'
+    append 'META-INF/spring/org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration.imports'
+
     append 'META-INF/spring.handlers'
     append 'META-INF/spring.schemas'
     append 'META-INF/spring.tooling'
@@ -32,13 +37,18 @@ dependencies {
     implementation platform('org.springframework.boot:spring-boot-dependencies:3.2.5')
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    //implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation "org.springframework.boot:spring-boot-starter-validation"
+
     implementation 'com.amazonaws.serverless:aws-serverless-java-container-springboot3:2.0.1'
     implementation 'com.amazonaws:aws-lambda-java-core:1.2.3'
 
+    implementation platform('software.amazon.awssdk:bom:2.20.162')
+    implementation 'software.amazon.awssdk:dynamodb'
+    implementation 'software.amazon.awssdk:dynamodb-enhanced'
 
-    runtimeOnly 'org.postgresql:postgresql:42.7.3'
+
+    //runtimeOnly 'org.postgresql:postgresql:42.7.3'
 
     compileOnly 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
